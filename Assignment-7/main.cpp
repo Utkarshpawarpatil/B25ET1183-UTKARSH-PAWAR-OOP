@@ -1,34 +1,41 @@
-Implementation of a String class with dynamic character array allocation in the constructor and deallocation in the destructor in C++
-Code :-
-
 #include <iostream>
 #include <cstring>
 using namespace std;
-
 class String
 {
-    char *str;  // Pointer to character array
+    char *str;
 public:
-    // Constructor: dynamically allocates memory
-    String(const char *s)
+    String()
     {
-        str = new char[strlen(s) + 1];
-        strcpy(str, s);
+        str = new char[100];
     }
-    // Destructor: deallocates memory
+    String(const String &s)
+    {
+        str = new char[strlen(s.str) + 1];
+        strcpy(str, s.str);
+    }
+    void Accept()
+    {
+        cout << "Enter a string: ";
+        cin.getline(str, 100);
+    }
+    void Display()
+    {
+        cout << "String = " << str << endl;
+    }
     ~String()
     {
         delete[] str;
     }
-    // Function to display the string
-    void display()
-    {
-        cout << str;
-    }
 };
 int main()
 {
-    String s("Object Oriented Programming");
-    s.display();
+    String s1;
+    s1.Accept();
+    cout << "\nOriginal String:" << endl;
+    s1.Display();
+    String s2(s1);
+    cout << "\nCopied String:" << endl;
+    s2.Display();
     return 0;
 }
