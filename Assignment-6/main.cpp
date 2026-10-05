@@ -1,36 +1,48 @@
-Overloading the << operator to display a complex number in the form a+bi.
-Code :-
 #include <iostream>
 using namespace std;
 
-// Class to represent a complex number
 class Complex
 {
-    int a, b;  // a = real part, b = imaginary part
+    int real;
+    int imag;
+
 public:
-    // Function to accept real and imaginary parts
-    void input()
+    void read()
     {
-        cout << "Enter real and imaginary parts: ";
-        cin >> a >> b;
+        cout << "Enter real part: ";
+        cin >> real;
+
+        cout << "Enter imaginary part: ";
+        cin >> imag;
     }
-    // Overloading the << insertion operator to display a complex number
-    friend ostream& operator<<(ostream& out, const Complex& c)
+
+    Complex operator+(int n)
     {
-        out << c.a;  // Display the real part
-        // Display '+' if the imaginary part is non-negative
-        if (c.b >= 0)
-            out << "+" << c.b << "i";
-        else
-            out << c.b << "i";  // Negative value already contains '-'
-        return out;  // Return output stream to support chaining
+        Complex temp;
+        temp.real = real + n;
+        temp.imag = imag;
+        return temp;
+    }
+
+    void display()
+    {
+        cout << "Result = " << real << " + " << imag << "i" << endl;
     }
 };
+
 int main()
 {
-    Complex c;  // Create an object of Complex class
-    c.input();  // Accept the complex number from the user
-    // Display the complex number using the overloaded << operator
-    cout << "Complex number = " << c;
-    return 0;  // End the program
+    Complex c1, c2;
+    int n;
+
+    c1.read();
+
+    cout << "Enter integer value: ";
+    cin >> n;
+
+    c2 = c1 + n;
+
+    c2.display();
+
+    return 0;
 }
